@@ -16,7 +16,8 @@ class Controller:
 
     def add_sentence(self, sentence):
         try:
-            valid = Validations(sentence.strip(), self.repo.sentence_list)
+            sentence = sentence.strip()
+            valid = Validations(sentence, self.repo.sentence_list)
             valid.valid_sentence()
             self.repo.add_sentence(sentence)
         except ValidationError as ve:

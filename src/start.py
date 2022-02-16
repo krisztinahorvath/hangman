@@ -4,6 +4,11 @@ from src.controller.functionalities.functionalities import Controller
 ui = UI(Controller("repository/sentences.txt"))
 ui.start()
 
+
+
+# todo test controller file not found
+
+
 # anna has apples
 # patricia has pears
 # cars are fast
