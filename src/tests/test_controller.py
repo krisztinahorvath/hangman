@@ -40,6 +40,40 @@ class TestController(unittest.TestCase):
         self.controller.sentence_solution = "The panda has pants"
         self.assertEqual(str(self.controller.codify_sentence()), "The pa__a has pa__s")
 
+    def test_game_won_human(self):
+        self.controller.sentence_in_game = "anna has apples"
+        self.controller.sentence_solution = "anna has apples"
+        self.assertEqual(self.controller.game_won_human(), 1)
+
+        self.controller.sentence_in_game = "anna has apple_"
+        self.controller.sentence_solution = "anna has apples"
+        self.assertEqual(self.controller.game_won_human(), 0)
+
+    def test_game_won_computer(self):
+        self.controller.hangman = "hangman"
+        self.assertEqual(self.controller.game_won_computer(), 1)
+
+        self.controller.hangman = "hangma"
+        self.assertEqual(self.controller.game_won_computer(), 0)
+
+    def test_letter_found(self):
+        self.controller.sentence_solution = "Anna has apples"
+        self.controller.sentence_in_game = "A__a has a__les"
+
+        self.assertEqual(self.controller.letter_found("n"), 1)
+        self.assertEqual(self.controller.letter_found("p"), 1)
+        self.assertEqual(self.controller.letter_found("k"), 0)
+        self.assertEqual(self.controller.letter_found("b"), 0)
+
+    def test_reveal_letters(self):
+        pass
+
+    def test_hangman_completion(self):
+        pass
+
+    def test_letter_check(self):
+        pass
+
 
 class TestValidations(unittest.TestCase):
     def setUp(self) -> None:

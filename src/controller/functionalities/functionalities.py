@@ -114,7 +114,6 @@ class Controller:
         Checks if the letter given by the user is correct, and verifies if the user or computer won
         :return: human - user won, computer - user lost, continue - otherwise
         """
-        # todo previously proposed letter
         if self.letter_found(letter) == 1:
             self.reveal_letters(letter)
             if self.game_won_human() == 1:
