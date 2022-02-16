@@ -7,7 +7,6 @@ class UI:
         self.controller = controller
         self.prints = Prints()
 
-
     def start(self):
         self.prints.console_print()
         option = input("Option:")

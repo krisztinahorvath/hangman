@@ -7,13 +7,13 @@ class Validations:
         self.sentence = sentence.strip()
         self.sentence_list = sentence_list
 
-    def _duplicate_sentence(self):
+    def duplicate_sentence(self):
         if self.sentence in self.sentence_list:
             raise ValidationError("\tInvalid input! The sentence that you are trying to add already exists!")
 
     def valid_sentence(self):
         try:
-            self._duplicate_sentence()
+            self.duplicate_sentence()
             if len(self.sentence) < 3:
                 raise ValidationError("\tInvalid input! "
                                       "The sentence must contain at least one word of at least three letters!")
