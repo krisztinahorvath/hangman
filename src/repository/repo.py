@@ -2,6 +2,7 @@
 Repository class that contains the sentence list and the functions for opening, saving a file plus others
 needed to play the game or to save a sentence.
 """
+import pickle
 
 
 class Repository:
@@ -55,6 +56,28 @@ class Repository:
         return self._sentence_list
 
 
+class RepositoryPickle(Repository):
+    def __init__(self, file_name):
+        super().__init__(file_name)
+
+    def _load_file(self):
+        try:
+            with open(self._file_name, "rb") as f:
+                self._sentence_list = pickle.load(f)
+            self._save_file()
+            f.close()
+        except IOError as ve:
+            raise ve
+
+    def _save_file(self):
+        with open(self._file_name, "wb") as f:
+            pickle.dump(self._sentence_list, f)
+
+        f.close()
+
+    def add_sentence(self, sentence):
+        super().add_sentence(sentence)
+        self._save_file()
 
 
 
