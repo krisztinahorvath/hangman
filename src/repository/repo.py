@@ -2,9 +2,9 @@ class Repository:
     def __init__(self, file_name):
         self._file_name = file_name
         self._sentence_list = list()
-        self._load_file()
+        self.load_file()
 
-    def _load_file(self):
+    def load_file(self):
         """
         Load text file and read the sentences from it.
         :return:
@@ -16,12 +16,12 @@ class Repository:
                 if len(line) > 0:
                     self._sentence_list.append(line)
 
-            self._save_file()
+            self.save_file()
             f.close()
         except IOError as ve:
             raise ve
 
-    def _save_file(self):
+    def save_file(self):
         """
         Saves file, writes everything in the file and saves it.
         :return:
@@ -41,7 +41,7 @@ class Repository:
         :return:
         """
         self._sentence_list.append(sentence)
-        self._save_file()
+        self.save_file()
 
     @property
     def sentence_list(self):

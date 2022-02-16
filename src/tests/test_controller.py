@@ -1,6 +1,7 @@
 import unittest
 from src.controller.functionalities.functionalities import Controller
 from src.controller.functionalities.validations import ValidationError, Validations
+import copy
 
 
 class TestController(unittest.TestCase):
@@ -12,6 +13,9 @@ class TestController(unittest.TestCase):
         pass
 
     def test_add_sentence(self):
+
+        old_file = copy.deepcopy(self.controller.repo.sentence_list)
+
         self.controller.add_sentence("Anna has seven lambs")
         self.assertEqual(str(self.controller.repo.sentence_list[-1]), "Anna has seven lambs")
 
@@ -22,6 +26,9 @@ class TestController(unittest.TestCase):
             self.controller.add_sentence("anna has apples")
         self.assertEqual(str(ve.exception),  "\tInvalid input! The sentence that you are trying to add already exists!")
         self.assertEqual(str(self.controller.repo.sentence_list[-1]), "Anna has four dolls")
+
+        self.controller.repo._sentence_list = copy.deepcopy(old_file)
+        self.controller.repo.save_file()
 
     def test_codify_sentence(self):
         self.controller.sentence_solution = "Anna has apples"
