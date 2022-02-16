@@ -43,7 +43,7 @@ class UI:
                         return
                     elif status == "computer":
                         print('"' + str(self.controller.sentence_in_game) + '"' + ' - "' + str(
-                            self.controller.hangman) + '"' + " YOU LOST!")
+                            self.controller.hangman) + '"' + "  -  YOU LOST!")
                         return
                     else:
                         print('"' + str(self.controller.sentence_in_game) + '"' + ' - "' + str(self.controller.hangman) + '"')

@@ -83,7 +83,7 @@ class Controller:
         :param letter: letter given by the user
         :return: 1 - if letter appears in the sentence, 0 - otherwise
         """
-        if letter in self.sentence_solution:
+        if letter in self.sentence_solution and letter not in self.sentence_in_game:
             return 1
         return 0
 
@@ -107,15 +107,14 @@ class Controller:
         :return:
         """
         s = "hangman"
-        i = self.hangman.find('_')
-        if i != -1:
-            self.hangman[i] = s[i]
+        self.hangman = self.hangman + s[len(self.hangman)]
 
     def letter_check(self, letter):
         """
         Checks if the letter given by the user is correct, and verifies if the user or computer won
         :return: human - user won, computer - user lost, continue - otherwise
         """
+        # todo previously proposed letter
         if self.letter_found(letter) == 1:
             self.reveal_letters(letter)
             if self.game_won_human() == 1:
