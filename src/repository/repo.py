@@ -1,3 +1,9 @@
+"""
+Repository class that contains the sentence list and the functions for opening, saving a file plus others
+needed to play the game or to save a sentence.
+"""
+
+
 class Repository:
     def __init__(self, file_name):
         self._file_name = file_name
@@ -38,6 +44,7 @@ class Repository:
     def add_sentence(self, sentence):
         """
         Adds a sentence to the sentence list and saves it to the file.
+        :param sentence: sentence given by user
         :return:
         """
         self._sentence_list.append(sentence)

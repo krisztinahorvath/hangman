@@ -25,14 +25,10 @@ class UI:
                     option = input("Option:")
                 except IOError as ve:
                     print(ve)
-                    print(ve)
                     self.prints.console_print()
                     option = input("Option:")
 
             elif option == "play":
-                # todo prints at the beginning of the game
-                # todo prints during the game
-                # todo works for big letters and small letters
                 if just_started == 1:
                     print("Game mode begins!\nOutput: " +
                           '"' + str(self.controller.sentence_in_game) + '"' + ' - "' + str(self.controller.hangman) + '"')
@@ -41,9 +37,16 @@ class UI:
                     letter = input("Your guess is: ")
                     letter.strip()
                     letter.lower()
-
-                    # todo change the word, hangman add letters, verify for win etc.
-                    print('"' + str(self.controller.sentence_in_game) + '"' + ' - "' + str(self.controller.hangman) + '"')
+                    status = self.controller.letter_check(letter)
+                    if status == "human":
+                        print('"' + str(self.controller.sentence_in_game) + '"' + ' - "YOU WON!"')
+                        return
+                    elif status == "computer":
+                        print('"' + str(self.controller.sentence_in_game) + '"' + ' - "' + str(
+                            self.controller.hangman) + '"' + " YOU LOST!")
+                        return
+                    else:
+                        print('"' + str(self.controller.sentence_in_game) + '"' + ' - "' + str(self.controller.hangman) + '"')
             else:
                 print("Invalid command!")
                 self.prints.console_print()

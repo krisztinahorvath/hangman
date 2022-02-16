@@ -1,7 +1,11 @@
+import copy
 from random import choice
 from src.repository.repo import Repository
 from copy import deepcopy
 from src.controller.functionalities.validations import ValidationError, Validations
+"""
+Controller class that has all the functionalities needed to play the game.
+"""
 
 
 class Controller:
@@ -12,9 +16,17 @@ class Controller:
         self.hangman = ""
 
     def random_sentence(self):
+        """
+        Chooses a random sentence from the sentence list read from the input file
+        :return: the random sentence
+        """
         return choice(self.repo.sentence_list)
 
     def add_sentence(self, sentence):
+        """
+        Adds a given sentence to the sentence list, and saves it to the sentences.txt file
+        :param sentence: sentence given by the user
+        """
         try:
             sentence = sentence.strip()
             valid = Validations(sentence, self.repo.sentence_list)
@@ -27,8 +39,7 @@ class Controller:
 
     def codify_sentence(self):
         """
-        pick the last and first letters of every sentence in a list, go through the sentence again
-        and make all those letters underscores
+        Codifies the randomly selected sentence so that the user can play, codifies it hangman style
         :return:
         """
         new_sentence = ""
@@ -49,20 +60,71 @@ class Controller:
         return new_sentence
 
     def game_won_human(self):
-        pass
+        """
+        Checks if the human won the game by guessing all the letters from the sentence
+        :return: 1 - human won, 0 - otherwise
+        """
+        if self.sentence_solution == self.sentence_in_game:
+            return 1
+        return 0
 
     def game_won_computer(self):
-        pass
-
-    def wrong_letter(self):
-        pass
-
-    def right_letter(self):
-        pass
-
-    def letter_check(self):
         """
-        uses wrong letter and right letter and game won human/computer
+        Checks if the computer won the game by the mistakes made by the human
+        :return: 1 - computer won, 0 - otherwise
+        """
+        if self.hangman == "hangman":
+            return 1
+        return 0
+
+    def letter_found(self, letter):
+        """
+        Checks if a letter given by the player appears in the sentence played on or not
+        :param letter: letter given by the user
+        :return: 1 - if letter appears in the sentence, 0 - otherwise
+        """
+        if letter in self.sentence_solution:
+            return 1
+        return 0
+
+    def reveal_letters(self, letter):
+        """
+        Reveals the letter "letter" which was guessed by the human during the game in the sentence that they're
+        playing on
+        :param letter: letter given by the user
+        """
+        new_sentence = ""
+        for i in range(0, len(self.sentence_solution)):
+            if letter == self.sentence_solution[i]:
+                new_sentence = new_sentence + letter
+            else:
+                new_sentence = new_sentence + self.sentence_in_game[i]
+        self.sentence_in_game = copy.deepcopy(new_sentence)
+
+    def hangman_completion(self):
+        """
+        Adds a letter to the word hangman: ex: h => ha, ha=> han, ...,hangma => hangman
         :return:
         """
-        pass
+        s = "hangman"
+        i = self.hangman.find('_')
+        if i != -1:
+            self.hangman[i] = s[i]
+
+    def letter_check(self, letter):
+        """
+        Checks if the letter given by the user is correct, and verifies if the user or computer won
+        :return: human - user won, computer - user lost, continue - otherwise
+        """
+        if self.letter_found(letter) == 1:
+            self.reveal_letters(letter)
+            if self.game_won_human() == 1:
+                return "human"
+        else:
+            self.hangman_completion()
+            if self.game_won_computer() == 1:
+                return "computer"
+        return "continue"
+
+
+
