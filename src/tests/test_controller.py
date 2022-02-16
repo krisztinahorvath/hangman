@@ -12,31 +12,16 @@ class TestController(unittest.TestCase):
         pass
 
     def test_add_sentence(self):
+        self.controller.add_sentence("Anna has seven lambs")
+        self.assertEqual(str(self.controller.repo.sentence_list[-1]), "Anna has seven lambs")
+
+        self.controller.add_sentence("Anna has four dolls")
+        self.assertEqual(str(self.controller.repo.sentence_list[-1]), "Anna has four dolls")
+
         with self.assertRaises(ValidationError) as ve:
             self.controller.add_sentence("anna has apples")
-        self.assertEqual(str(ve.exception), "\tInvalid input! The sentence that you are trying to add already exists!")
-
-        with self.assertRaises(ValidationError) as ve:
-            self.controller.add_sentence("anna has apples     ")
-        self.assertEqual(str(ve.exception), "\tInvalid input! The sentence that you are trying to add already exists!")
-
-        with self.assertRaises(ValidationError) as ve:
-            self.controller.add_sentence("")
-        self.assertEqual(str(ve.exception), "\tInvalid input! "
-                                      "The sentence must contain at least one word of at least three letters!")
-
-        with self.assertRaises(ValidationError) as ve:
-            self.controller.add_sentence("   a ")
-        self.assertEqual(str(ve.exception), "\tInvalid input! "
-                                      "The sentence must contain at least one word of at least three letters!")
-
-        with self.assertRaises(ValidationError) as ve:
-            self.controller.add_sentence("ana ha apples")
-        self.assertEqual(str(ve.exception), "\tInvalid input! Not all words have three letters!")
-
-        with self.assertRaises(ValidationError) as ve:
-            self.controller.add_sentence("a   n a ")
-        self.assertEqual(str(ve.exception), "\tInvalid input! Not all words have three letters!")
+        self.assertEqual(str(ve.exception),  "\tInvalid input! The sentence that you are trying to add already exists!")
+        self.assertEqual(str(self.controller.repo.sentence_list[-1]), "Anna has four dolls")
 
     def test_codify_sentence(self):
         self.controller.sentence_solution = "Anna has apples"

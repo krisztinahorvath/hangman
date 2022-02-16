@@ -22,6 +22,8 @@ class Controller:
             self.repo.add_sentence(sentence)
         except ValidationError as ve:
             raise ve
+        except IOError as ve:
+            raise ve
 
     def codify_sentence(self):
         """

@@ -9,25 +9,31 @@ class Repository:
         Load text file and read the sentences from it.
         :return:
         """
-        f = open(self._file_name, "rt")
-        for line in f.readlines():
-            line = line.strip()
-            if len(line) > 0:
-                self._sentence_list.append(line)
+        try:
+            f = open(self._file_name, "rt")
+            for line in f.readlines():
+                line = line.strip()
+                if len(line) > 0:
+                    self._sentence_list.append(line)
 
-        self._save_file()
-        f.close()
+            self._save_file()
+            f.close()
+        except IOError as ve:
+            raise ve
 
     def _save_file(self):
         """
         Saves file, writes everything in the file and saves it.
         :return:
         """
-        f = open(self._file_name, "wt")
-        for i in self._sentence_list:
-            f.write(str(i) + '\n')
+        try:
+            f = open(self._file_name, "wt")
+            for i in self._sentence_list:
+                f.write(str(i) + '\n')
 
-        f.close()
+            f.close()
+        except IOError as ve:
+            raise ve
 
     def add_sentence(self, sentence):
         """

@@ -23,6 +23,12 @@ class UI:
                     print(ve)
                     self.prints.console_print()
                     option = input("Option:")
+                except IOError as ve:
+                    print(ve)
+                    print(ve)
+                    self.prints.console_print()
+                    option = input("Option:")
+
             elif option == "play":
                 # todo prints at the beginning of the game
                 # todo prints during the game
