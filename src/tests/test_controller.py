@@ -66,13 +66,32 @@ class TestController(unittest.TestCase):
         self.assertEqual(self.controller.letter_found("b"), 0)
 
     def test_reveal_letters(self):
-        pass
+        self.controller.sentence_solution = "Anna has apples"
+        self.controller.sentence_in_game = "A__a has a__les"
+        self.controller.reveal_letters("n")
+        self.assertEqual(self.controller.sentence_in_game, "Anna has a__les")
+
+        self.controller.reveal_letters("p")
+        self.assertEqual(self.controller.sentence_in_game, "Anna has apples")
 
     def test_hangman_completion(self):
-        pass
+        self.controller.hangman = ""
+        self.controller.hangman_completion()
+        self.assertEqual(self.controller.hangman, "h")
+
+        self.controller.hangman_completion()
+        self.assertEqual(self.controller.hangman, "ha")
 
     def test_letter_check(self):
-        pass
+        self.controller.sentence_solution = "Anna has apples"
+        self.controller.sentence_in_game = "A__a has a__les"
+
+        self.assertEqual(self.controller.letter_check("n"), "continue")
+        self.assertEqual(self.controller.letter_check("p"), "human")
+
+        self.controller.hangman = "hangma"
+        self.controller.sentence_in_game = "A__a has a__les"
+        self.assertEqual(self.controller.letter_check("e"), "computer")
 
 
 class TestValidations(unittest.TestCase):
