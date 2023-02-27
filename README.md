@@ -1,3 +1,3 @@
 # hangman
  
-![272780391_5066436363435333_8488026971801359360_n](https://user-images.githubusercontent.com/91715582/154028617-7958ec25-6a5c-4204-ade1-8efd0a5f0a59.jpg)
+A console-based variation of the classical Hangman game. The computer will select a sentence that the user can attempt to guess letter by letter. Each time the user guesses a correct letter, the computer will fill it in the sentence at the correct positions. In case the letter does not appear, the computer will fill in a new letter in the word "hangman", startring from the empty string. The game ends when the user has guessed the sentence(user wins) or the computer fill in the "hangman" word (user loses).
